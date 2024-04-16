@@ -1,0 +1,70 @@
+﻿@model Ecommerce_Project.Models.ViewModels.ProductVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4> Add New Products</h4>
+<div class="row">
+    <div class="col-8 offset-2">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row mb-2">
+                <label asp-for="Name" class="col-form-label col-2"></label>
+                <div class="col-8">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                </div>
+            <div class="row mb-2">
+                <label asp-for="Unit" class="col-form-label col-2"></label>
+                <div class="col-8">
+                    <input asp-for="Unit" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <span asp-validation-for="Unit" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label asp-for="Price" class="col-form-label col-2"></label>
+                <div class="col-8">
+                    <input asp-for="Price" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label asp-for="Quentity" class="col-form-label col-2"></label>
+                <div class="col-8">
+                    <input asp-for="Quentity" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <span asp-validation-for="Quentity" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <label asp-for="PictureFile" class="col-form-label col-2"></label>
+                <div class="col-8">
+                    <input asp-for="PictureFile" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <span asp-validation-for="PictureFile" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <input type="submit" value="Create" class="btn btn-primary btn-sm" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

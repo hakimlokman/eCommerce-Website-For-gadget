@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Products>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+@using Ecommerce_Project.Models
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor _httpContextAccerssor
+@{
+    List<Products> productList = _httpContextAccerssor.HttpContext.Session.GetObject<List<Products>>("cart");
+    double count = 0;
+    if (productList != null)
+    {
+        foreach (var item in productList)
+        {
+            count += item.Quentity;  
+        }
+    }
+    else
+    {
+        productList = new List<Products>(); 
+    }
+}
+
+
+<h1 class="display-4">Our Products</h1>
+<div class="row">
+    <div class="col-10">
+        @if (ViewBag.msg != null)
+        {
+            <h4 class="text-center text-dark alert alert-info">@ViewBag.msg</h4>
+        }
+    </div>
+    <div class="col-2">
+        <h3>Cart Item</h3>
+        <a asp-action="showCart" asp-controller="Home" style="text-decoration:none;">
+            <img src="~/Images/shopping-cart.png" width="32px" style="border-radius:10%;" /> <sup>(@count)</sup>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">         
+            <div class="pro-container" id="product1">
+                <div id="products" class="products">
+                    <div class="product">
+                        <h2>@Html.DisplayFor(x=>item.Name)</h2>
+                        <img src="@item.Picture" alt="Product" width="25" height="25"/>
+                        <div class="des">
+                            <span>@Html.DisplayFor(x=>item.Unit)</span>
+                            <h4>$@Html.DisplayFor(x=>item.Price)</h4>
+                            <div>
+                                <form asp-action="AddToCart" asp-controller="Home" method="post">
+                                    <input type="hidden" name="pid" value="@item.Id" />
+                                    <input type="number" name="qty" style="width:75px;" value="1" min="1" max="500" />
+                                    <button type="submit" class="btn btn-success btn-sm">Add To Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
